@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Comigo?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f8d7da;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      color: #800040;
+      font-size: 3em;
+      margin-bottom: 40px;
+      font-weight: normal;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 40px;
+    }
+
+    button {
+      padding: 15px 40px;
+      font-size: 1.3em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Georgia', serif;
+    }
+
+    #sim {
+      background-color: #c2185b;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #sim:hover {
+      background-color: #a0144a;
+    }
+
+    #nao {
+      background-color: #fce4ec;
+      color: #c2185b;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff0f5;
+      color: #880e4f;
+      padding: 20px 30px;
+      border: 1px solid #d81b60;
+      border-radius: 10px;
+      display: none;
+      font-size: 1.1em;
+      box-shadow: 0px 0px 20px rgba(216, 27, 96, 0.5);
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d6d;
+      transform: rotate(45deg);
+      animation: floatUp 1s ease-out forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d6d;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(45deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1.5) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Você aceita se casar comigo?</h1>
+  <div class="buttons">
+    <button id="sim">Sim</button>
+    <button id="nao">Não</button>
+  </div>
+  <div id="popup">Que bom, não vejo a hora de fazermos 4 cpf juntos e morarmos em Peruíbe, numa casa com varanda e um jardim cheio de girassóis.</div>
+
+  <script>
+    const btnSim = document.getElementById('sim');
+    const btnNao = document.getElementById('nao');
+    const popup = document.getElementById('popup');
+
+    btnSim.addEventListener('click', () => {
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 5000);
+
+      for (let i = 0; i < 30; i++) {
+        createHeart();
+      }
+    });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.top = `${Math.random() * 100}vh`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 1000);
+    }
+
+    btnNao.addEventListener('mouseover', () => {
+      const maxX = window.innerWidth - btnNao.offsetWidth;
+      const maxY = window.innerHeight - btnNao.offsetHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      btnNao.style.position = 'absolute';
+      btnNao.style.left = `${randomX}px`;
+      btnNao.style.top = `${randomY}px`;
+    });
+  </script>
+</body>
+</html>
